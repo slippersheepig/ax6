@@ -18,8 +18,9 @@
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 rm -rf feeds/luci/applications/luci-app-homeproxy/
 rm -rf feeds/luci/applications/luci-app-adguardhome/
-git clone https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
-git clone https://github.com/sirpdboy/luci-app-adguardhome package/luci-app-adguardhome
-
-# 删除 luci-app-adguardhome 的 init 脚本，避免与 adguardhome 冲突
-rm -f package/luci-app-adguardhome/root/etc/init.d/adguardhome
+git clone --depth 1 https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
+# 从 kenzok8 仓库只取 luci-app-adguardhome
+echo "==> 使用 kenzok8 的 luci-app-adguardhome"
+git clone --depth 1 https://github.com/kenzok8/openwrt-packages tmp-kenzo
+mv tmp-kenzo/luci-app-adguardhome package/
+rm -rf tmp-kenzo
