@@ -17,4 +17,6 @@
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 rm -rf feeds/luci/applications/luci-app-homeproxy/
+rm -rf feeds/luci/applications/luci-app-adguardhome/
 git clone https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
+git clone https://github.com/sirpdboy/luci-app-adguardhome package/luci-app-adguardhome
