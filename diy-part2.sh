@@ -24,10 +24,9 @@ if [ -f "${UPDATE_SCRIPT}" ]; then
 else
   echo "==> No update-golang.sh found at ${UPDATE_SCRIPT}, skipping golang update"
 fi
-
+cd openwrt
 # Modify default IP
 sed -i 's/192.168.1.1/192.168.31.1/g' package/base-files/files/bin/config_generate
-cd openwrt
 # 更新 sing-box：删除原有版本并克隆最新版
 echo "==> 更新 sing-box 到最新版本"
 rm -rf feeds/packages/net/sing-box
