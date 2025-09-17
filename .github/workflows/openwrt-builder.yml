@@ -60,20 +60,9 @@ jobs:
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
-        if [ -f "${GITHUB_WORKSPACE}/${DIY_P1_SH}" ]; then
-          echo "Setting executable: ${GITHUB_WORKSPACE}/${DIY_P1_SH}"
-          chmod +x "${GITHUB_WORKSPACE}/${DIY_P1_SH}"
-        else
-          echo "Warning: ${GITHUB_WORKSPACE}/${DIY_P1_SH} not found"
-        fi
-        if [ -f "${GITHUB_WORKSPACE}/scripts/update-golang.sh" ]; then
-          echo "Setting executable: ${GITHUB_WORKSPACE}/scripts/update-golang.sh"
-          chmod +x "${GITHUB_WORKSPACE}/scripts/update-golang.sh"
-        else
-          echo "Warning: ${GITHUB_WORKSPACE}/scripts/update-golang.sh not found"
-        fi
+        chmod +x $DIY_P1_SH
         cd openwrt
-        "${GITHUB_WORKSPACE}/${DIY_P1_SH}"
+        $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
