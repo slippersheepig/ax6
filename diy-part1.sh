@@ -10,16 +10,6 @@
 # See /LICENSE for more information.
 #
 
-# 自动检测并在需要时更新 golang 版本（更新 Makefile 中的
-# GO_VERSION_MAJOR_MINOR、GO_VERSION_PATCH、PKG_HASH）
-SCRIPT="${GITHUB_WORKSPACE:-$(pwd)}/scripts/update-golang.sh"
-if [ -f "$SCRIPT" ]; then
-  echo "==> 检查并更新本地 golang Makefile（如需要）: $SCRIPT"
-  bash "$SCRIPT" || echo "Warning: update-golang.sh returned non-zero"
-else
-  echo "==> $SCRIPT not found, 跳过 golang 自动更新"
-fi
-
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
