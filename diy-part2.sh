@@ -20,9 +20,3 @@ cd tmp-sing-box
 mv net/sing-box ../feeds/packages/net/
 cd ..
 rm -rf tmp-sing-box
-# 更新 adguardhome：删除原有版本并克隆最新版
-echo "==> 更新 adguardhome 到最新版本"
-rm -rf feeds/packages/net/adguardhome
-git clone --depth 1 https://github.com/kenzok8/openwrt-packages tmp-kenzo
-mv tmp-kenzo/adguardhome feeds/packages/net/
-rm -rf tmp-kenzo
