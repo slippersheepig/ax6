@@ -64,13 +64,6 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-    - name: Clean old feeds
-      run: |
-        cd openwrt
-        rm -rf feeds/packages/net/adguardhome
-        rm -rf feeds/luci/applications/luci-app-adguardhome
-        rm -rf feeds/luci/applications/luci-app-homeproxy
-
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
