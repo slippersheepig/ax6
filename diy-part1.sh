@@ -19,8 +19,6 @@
 
 # ==> 清理 feeds 中的默认软件包定义，防止冲突
 echo "==> Removing default packages from feeds to prevent conflicts..."
-rm -rf feeds/luci/applications/luci-app-adguardhome
-rm -rf feeds/packages/net/adguardhome
 rm -rf feeds/luci/applications/luci-app-homeproxy
 rm -rf feeds/packages/net/sing-box
 
@@ -36,7 +34,7 @@ echo "Cloning AdGuardHome packages from kenzok8..."
 PKG_REPO_URL="https://github.com/kenzok8/openwrt-packages"
 PKG_BRANCH="master"
 # 需要拉取的软件包文件夹
-PKG_DIRS="adguardhome luci-app-adguardhome"
+PKG_DIRS="luci-app-adguardhome"
 
 # 创建临时目录并进行 sparse checkout
 git clone --depth 1 --no-checkout --filter=blob:none -b "$PKG_BRANCH" "$PKG_REPO_URL" kenzok8-packages
