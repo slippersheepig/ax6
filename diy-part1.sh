@@ -16,12 +16,3 @@
 # Add a feed source
 #echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
 #echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
-rm -rf feeds/packages/net/adguardhome
-rm -rf feeds/luci/applications/luci-app-adguardhome
-rm -rf feeds/luci/applications/luci-app-homeproxy
-git clone --depth 1 https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
-echo "==> 使用 kenzok8 的 adguardhome"
-git clone --depth 1 https://github.com/kenzok8/openwrt-packages tmp-kenzo
-mv tmp-kenzo/luci-app-adguardhome package/
-mv tmp-kenzo/adguardhome package/
-rm -rf tmp-kenzo
