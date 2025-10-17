@@ -19,6 +19,8 @@
 
 # ==> 清理 feeds 中的默认软件包定义，防止冲突
 echo "==> Removing default packages from feeds to prevent conflicts..."
+rm -rf feeds/luci/applications/luci-app-adguardhome
+rm -rf feeds/packages/net/adguardhome
 rm -rf feeds/luci/applications/luci-app-homeproxy
 rm -rf feeds/packages/net/sing-box
 
@@ -29,7 +31,7 @@ echo "==> Adding custom packages..."
 echo "Cloning luci-app-homeproxy..."
 git clone --depth=1 https://github.com/immortalwrt/homeproxy package/luci-app-homeproxy
 
-# 2. 使用 sparse-checkout 添加 kenzok8 的 AdGuard Home 和 luci-app-adguardhome
+# 2. 使用 sparse-checkout 添加 kenzok8 的 luci-app-adguardhome
 echo "Cloning AdGuardHome packages from kenzok8..."
 PKG_REPO_URL="https://github.com/kenzok8/openwrt-packages"
 PKG_BRANCH="master"
@@ -47,7 +49,22 @@ mv -f $PKG_DIRS ../package/
 cd ..
 rm -rf kenzok8-packages
 
-# 3. 使用 sparse-checkout 添加 immortalwrt 的最新版 sing-box
+# 3. 使用 sparse-checkout 添加 immortalwrt 的 AdGuard Home
+echo "Cloning latest adguardhome from immortalwrt/packages..."
+PKG_REPO_URL="https://github.com/immortalwrt/packages"
+PKG_BRANCH="master"
+PKG_DIRS="net/adguardhome"
+
+git clone --depth 1 --no-checkout --filter=blob:none -b "$PKG_BRANCH" "$PKG_REPO_URL" immortalwrt-packages
+cd immortalwrt-packages
+git sparse-checkout init --cone
+git sparse-checkout set $PKG_DIRS
+git checkout "$PKG_BRANCH"
+mv -f $PKG_DIRS ../package/
+cd ..
+rm -rf immortalwrt-packages
+
+# 4. 使用 sparse-checkout 添加 immortalwrt 的最新版 sing-box
 echo "Cloning latest sing-box from immortalwrt/packages..."
 PKG_REPO_URL="https://github.com/immortalwrt/packages"
 PKG_BRANCH="master"
