@@ -27,8 +27,17 @@ rm -rf feeds/packages/net/adguardhome
 git clone --depth 1 https://github.com/kenzok8/openwrt-packages tmp-kenzo
 mv tmp-kenzo/adguardhome feeds/packages/net/
 rm -rf tmp-kenzo
-# 修复 libnatpmp 的旧 CMake 版本声明
-find package/feeds/packages/libnatpmp/CMakeLists.txt 2>/dev/null | while read -r file; do
-    echo "Patching $file ..."
-    sed -i '1s/.*/cmake_minimum_required(VERSION 3.5)/' "$file"
-done
+# 修复 libnatpmp 的旧 CMake 版本声明（延迟执行）
+echo "Adding post-unpack hook to patch libnatpmp CMakeLists.txt"
+cat >> include/download.mk <<'EOF'
+
+# --- Custom patch for libnatpmp CMake compatibility ---
+define PatchLibnatpmpCMake
+    if [ -f $(TOPDIR)/feeds/packages/libs/libnatpmp/CMakeLists.txt ]; then \
+        echo "Fixing libnatpmp CMakeLists.txt ..."; \
+        sed -i '1s/.*/cmake_minimum_required(VERSION 3.5)/' $(TOPDIR)/feeds/packages/libs/libnatpmp/CMakeLists.txt; \
+    fi
+endef
+Hooks/PostDownload += PatchLibnatpmpCMake
+# --- End custom patch ---
+EOF
