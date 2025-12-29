@@ -25,5 +25,5 @@ rm -rf feeds/packages/net/adguardhome
 git clone --depth 1 https://github.com/kenzok8/openwrt-packages tmp-kenzo
 mv tmp-kenzo/adguardhome feeds/packages/net/
 rm -rf tmp-kenzo
-sed -i '/files/adguardhome.*/d' feeds/packages/net/adguardhome/Makefile
-sed -i '/$(INSTALL_DIR) $(1)/etc/d' feeds/packages/net/adguardhome/Makefile
+sed -i '\#files/adguardhome#d' feeds/packages/net/adguardhome/Makefile
+sed -i '\#\$(INSTALL_DIR) \$(1)/etc#d' feeds/packages/net/adguardhome/Makefile
